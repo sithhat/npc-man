@@ -1,17 +1,15 @@
 #include "Window.h"
+#include "WindowSystem.h"
+#include "WindowImp.h"
 
 using namespace Gui;
 
-WindowSystemFactory* windowSystemFactory = 0;
-
-Window::Window(){
+Gui::Window::Window()
+{
     _windowImp = windowSystemFactory->CreateWindowImp();
 }
 
-void Window::DrawRectangle(int x0, int y0, int x1, int y1){
-    _windowImp->DeviceDrawRectangle(x0, y0, x1, y1);
-}
-
-WindowImp* GtkWindowSystemFactory(){
-    return new GtkWindowImp;
+void Gui::Window::MakeWindow()
+{
+    _windowImp->DeviceMakeWindow();
 }
