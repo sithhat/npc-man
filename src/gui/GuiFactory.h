@@ -4,16 +4,14 @@
 
 namespace Gui{
 
-    class GtkApp{
+    class GuiFactory{
     public:
-        static GtkApplication* Instance();
-    protected:
-        GtkApp();
-    private:
-        static GtkApplication* _instance;
+        GuiFactory() {};
+        virtual ~GuiFactory() {};
+        virtual int MakeGui(int, char**) { return 0; };
     };
     
-    class GtkGuiFactory{
+    class GtkGuiFactory : public GuiFactory{
     public:
         GtkGuiFactory();
         ~GtkGuiFactory();
@@ -23,4 +21,6 @@ namespace Gui{
         static void Activate(GtkApplication*, gpointer*);
         
     };
+
+    static GuiFactory* guiFactory;
 }
