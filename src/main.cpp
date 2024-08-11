@@ -1,9 +1,10 @@
-#include "gui/GuiFactory.h"
+#include "gui/WindowSystemFactory.h"
 
 using namespace Gui;
 
 int main(int argc, char** argv)
 {
-  guiFactory = new GtkGuiFactory();
-  return guiFactory->MakeGui(argc, argv);
+  configuration = GTK;
+  auto main = new MainWindow();
+  return main->PresentMain(argc, argv);
 }

@@ -1,15 +1,17 @@
-#include "Window.h"
-#include "WindowSystem.h"
-#include "WindowImp.h"
+#include "WindowSystemFactory.h"
 
 using namespace Gui;
 
-Gui::Window::Window()
+WindowImp* Window::GetWindowImp()
 {
-    _windowImp = windowSystemFactory->CreateWindowImp();
+    if (_windowImp == 0)
+    {
+        _windowImp = WindowSystemFactory::Instance()->MakeWindowImp();
+    }
+    return _windowImp;
 }
 
-void Gui::Window::MakeWindow()
-{
-    _windowImp->DeviceMakeWindow();
+int MainWindow::PresentMain(int argc, char** argv){
+    WindowImp* imp = GetWindowImp();
+    return imp->DevicePresentMain(argc, argv);
 }
