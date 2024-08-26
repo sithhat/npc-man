@@ -6,7 +6,7 @@ namespace Gui {
     public:
         WindowImp() {};
         virtual ~WindowImp() {};
-        virtual int DevicePresentMain(int, char**) { return 0; };
+        virtual int DeviceRunGui(int, char**) { return 0; };
         virtual void DevicePresent() {};
         virtual void DevicePresentTextWindow() {};
     };
@@ -16,10 +16,13 @@ namespace Gui {
     {
     public:
         GtkWindowImp();
-        int DevicePresentMain(int, char**) override;
+        int DeviceRunGui(int, char**) override;
         void DevicePresent();
         void DevicePresentTextWindow();
         void DeviceSetParent();
-        static void Activate(GtkApplication*, gpointer*);
+        static void Activate(GtkApplication*, gpointer*);      
+    private:
+        static GtkWidget* MainWindowInstance();
+        static GtkWidget* _mainWindowInstance;
     };
 };

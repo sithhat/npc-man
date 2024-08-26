@@ -2,9 +2,11 @@
 
 using namespace Gui;
 
+GtkWidget* GtkWindowImp::_mainWindowInstance = 0;
+
 GtkWindowImp::GtkWindowImp(){}
 
-int GtkWindowImp::DevicePresentMain(int argc, char** argv)
+int GtkWindowImp::DeviceRunGui(int argc, char** argv)
 {
     g_signal_connect(GtkApp::Instance(), "activate", G_CALLBACK(Activate), NULL);
     auto status = g_application_run(G_APPLICATION(GtkApp::Instance()), argc, argv);
@@ -21,8 +23,7 @@ void GtkWindowImp::DevicePresent()
 
 void GtkWindowImp::Activate(GtkApplication* app, gpointer* data)
 {
-    GtkWidget* window;
-    window = gtk_application_window_new(app);
+    auto window = MainWindowInstance();
     gtk_window_set_application(GTK_WINDOW(window), app);
     gtk_window_present(GTK_WINDOW(window));
 }
@@ -37,4 +38,13 @@ void GtkWindowImp::DevicePresentTextWindow()
     auto buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textView));
     auto text = "";
     gtk_text_buffer_set_text(buffer, text, -1);
+}
+
+GtkWidget* GtkWindowImp::MainWindowInstance()
+{
+    if (_mainWindowInstance == 0){
+        auto app = GtkApp::Instance();
+        _mainWindowInstance = gtk_application_window_new(app);
+    }
+    return _mainWindowInstance;
 }

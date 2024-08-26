@@ -23,7 +23,7 @@ WindowImp* Window::GetWindowImp()
 
 int MainWindow::PresentMain(int argc, char** argv){
     WindowImp* imp = GetWindowImp();
-    return imp->DevicePresentMain(argc, argv);
+    return imp->DeviceRunGui(argc, argv);
 }
 
 void LogWindow::Present(){
