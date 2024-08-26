@@ -3,7 +3,6 @@
 using namespace Gui;
 
 WindowSystemFactory* WindowSystemFactory::_instance = 0;
-WindowSystem configuration = GTK;
 
 WindowSystemFactory* WindowSystemFactory::Instance()
 {
@@ -13,9 +12,13 @@ WindowSystemFactory* WindowSystemFactory::Instance()
     return _instance;
 }
 
+void WindowSystemFactory::SetWindowSystem(WindowSystem configuration){
+    _configuration = configuration;
+}
+
 WindowImp* WindowSystemFactory::MakeWindowImp()
 {
-    switch(configuration)
+    switch(_configuration)
     {
         case GTK: return new GtkWindowImp();
         default: return new GtkWindowImp();

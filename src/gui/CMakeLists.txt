@@ -3,6 +3,7 @@ add_library(gui
             WindowImp.h WindowImp.cpp
             Window.h Window.cpp
             WindowSystemFactory.h WindowSystemFactory.cpp
+            GuiBuilder.h GuiBuilder.cpp
             ) # Widgets.h Widgets.cpp)
 
 find_package(PkgConfig REQUIRED)

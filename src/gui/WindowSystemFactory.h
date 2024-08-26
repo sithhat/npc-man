@@ -7,17 +7,17 @@ namespace Gui{
     {
         GTK,
     };
-
-    static WindowSystem configuration;
     
     // Class for providing an interface to creating different kinds of window system-dependent implementations
     class WindowSystemFactory{
     public:
         static WindowSystemFactory* Instance();
         WindowImp* MakeWindowImp();
+        void SetWindowSystem(WindowSystem);
     protected:
         WindowSystemFactory() {};
     private:
         static WindowSystemFactory* _instance;
+        WindowSystem _configuration;
     };
 };
