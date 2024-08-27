@@ -1,28 +1,37 @@
+#include <list>
+#include <map>
 #include "GtkUI.h"
 
 namespace Gui {
+
     // Abstract class for hiding window-system dependent implementation
-    class WindowImp{
+    class WindowImp
+    {
     public:
-        WindowImp() {};
-        virtual ~WindowImp() {};
-        virtual int DeviceRunGui(int, char**) { return 0; };
-        virtual void DevicePresent() {};
-        virtual void DevicePresentTextWindow() {};
+        WindowImp(int);
+        int GetId();
+        ~WindowImp() {};
+        virtual int DevicePresentMain(int, char**) { return 0; };
+        virtual void DeviceAdd(int) {};
+        virtual void DeviceTextWidget() {};
+    protected:
+        int _id;
     };
 
     // Concrete class for gtk implementations
     class GtkWindowImp : public WindowImp
     {
     public:
-        GtkWindowImp();
-        int DeviceRunGui(int, char**) override;
-        void DevicePresent();
-        void DevicePresentTextWindow();
-        void DeviceSetParent();
-        static void Activate(GtkApplication*, gpointer*);      
+        GtkWindowImp(int);
+        ~GtkWindowImp() {};
+        int DevicePresentMain(int, char**) override;
+        void DeviceAdd(int) override;
+        void DeviceTextWidget() override;
+        static void Activate(GtkApplication*, gpointer*);
     private:
-        static GtkWidget* MainWindowInstance();
-        static GtkWidget* _mainWindowInstance;
+        static GtkWidget* Get();
+        static GtkWidget* _widget;
     };
+
+    static std::map<int, GtkWindowImp*> GtkWidgetMap;
 };

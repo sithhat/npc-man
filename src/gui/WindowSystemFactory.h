@@ -12,7 +12,7 @@ namespace Gui{
     class WindowSystemFactory{
     public:
         static WindowSystemFactory* Instance();
-        WindowImp* MakeWindowImp();
+        WindowImp* MakeWindowImp(int);
         void SetWindowSystem(WindowSystem);
     protected:
         WindowSystemFactory() {};

@@ -12,12 +12,16 @@ GuiBuilder* GuiBuilder::Instance()
     return _instance;
 }
 
-void GuiBuilder::SetWindowSystem(WindowSystem configuration){
+void GuiBuilder::SetWindowSystem(WindowSystem configuration)
+{
     auto _windowSystemFactory = WindowSystemFactory::Instance();
     _windowSystemFactory->SetWindowSystem(configuration);
 }
 
-int GuiBuilder::MakeGui(int argc, char** argv){
-    auto main = new MainWindow();
-    return main->PresentMain(argc, argv);
+int GuiBuilder::MakeGui(int argc, char** argv)
+{
+    auto mainWindow = new MainWindow();
+    auto logWindow = new LogWindow();
+    mainWindow->Add(logWindow);
+    return mainWindow->PresentMain(argc, argv);
 }

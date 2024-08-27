@@ -1,18 +1,29 @@
-#include <list>
-
 #include "WindowImp.h"
 
 namespace Gui{
+    class IdGenerator
+    {
+    public:
+        static IdGenerator* Instance();
+        int GenerateWindowId();
+    protected:
+        IdGenerator();
+    private:
+        static IdGenerator* _instance;
+        int _count;
+    };
+
     class Window
     {
     public:
         virtual void Present() {};
+        WindowImp* GetWindowImp();
+        int GetId();
     protected:
         Window();
-        WindowImp* GetWindowImp();
     private:
         WindowImp* _windowImp;
-        Window* _parent;
+        int _id;
     };
 
     class CompositeWindow : public Window
@@ -21,7 +32,7 @@ namespace Gui{
         virtual ~CompositeWindow() {};
         virtual void Add(Window*);
     private:
-        std::list<Window*> _child_windows;
+        std::list<Window*> _childWindows;
     };
 
     class MainWindow : public CompositeWindow
@@ -30,7 +41,7 @@ namespace Gui{
         int PresentMain(int, char**);
     };
 
-    class LogWindow : Window
+    class LogWindow : public Window
     {
     public:
         void Present() override;
