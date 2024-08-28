@@ -48,16 +48,25 @@ void CompositeWindow::Add(Window* child)
 {
     _childWindows.push_back(child);
     WindowImp* imp = GetWindowImp();
-    imp->DeviceAdd(child->GetId());
+    imp->ImpAdd(child->GetId());
+}
+
+MainWindowImp* MainWindow::GetMainWindowImp()
+{
+    if (_mainWindowImp == 0)
+    {
+        _mainWindowImp = WindowSystemFactory::Instance()->MakeMainWindowImp(_id);
+    }
+    return _mainWindowImp;
 }
 
 int MainWindow::PresentMain(int argc, char** argv)
 {
-    WindowImp* imp = GetWindowImp();
-    return imp->DevicePresentMain(argc, argv);
+    MainWindowImp* imp = GetMainWindowImp();
+    return imp->ImpPresentMain(argc, argv);
 }
 
 void LogWindow::Present()
 {
-    WindowImp* imp = GetWindowImp();
+    // WidgetImp* imp = GetWidgetImp();
 }

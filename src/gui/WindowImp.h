@@ -4,34 +4,59 @@
 
 namespace Gui {
 
-    // Abstract class for hiding window-system dependent implementation
-    class WindowImp
+    class WidgetImp
     {
     public:
-        WindowImp(int);
+        WidgetImp(int);
         int GetId();
-        ~WindowImp() {};
-        virtual int DevicePresentMain(int, char**) { return 0; };
-        virtual void DeviceAdd(int) {};
-        virtual void DeviceTextWidget() {};
+        virtual ~WidgetImp() {};
+        virtual void ImpAdd(int) {};
     protected:
         int _id;
     };
 
-    // Concrete class for gtk implementations
-    class GtkWindowImp : public WindowImp
+    class WindowImp : virtual public WidgetImp
+    {
+    public:
+        WindowImp(int);
+    };
+
+    class MainWindowImp : virtual public WindowImp
+    {
+    public:
+        MainWindowImp(int);
+        virtual int ImpPresentMain(int, char**) { return 0; };
+    };
+
+    class GtkWidgetImp : virtual public WidgetImp
+    {
+    public:
+        GtkWidgetImp(int);
+        ~GtkWidgetImp() {};
+        GtkWidget* Get();
+    private:
+        GtkWidget* _widget;
+    };
+
+    class GtkWindowImp : virtual public WindowImp, virtual public GtkWidgetImp
     {
     public:
         GtkWindowImp(int);
         ~GtkWindowImp() {};
-        int DevicePresentMain(int, char**) override;
-        void DeviceAdd(int) override;
-        void DeviceTextWidget() override;
-        static void Activate(GtkApplication*, gpointer*);
-    private:
-        static GtkWidget* Get();
-        static GtkWidget* _widget;
+        void ImpAdd(int) override;
     };
 
-    static std::map<int, GtkWindowImp*> GtkWidgetMap;
+    class GtkMainWindowImp : public MainWindowImp, public GtkWindowImp
+    {
+    public:
+        GtkMainWindowImp(int);
+        ~GtkMainWindowImp() {};
+        int ImpPresentMain(int, char**) override;
+        static void Activate(GtkApplication*, gpointer*);
+    private:
+        static GtkWidget* GetMain();
+        static GtkWidget* _mainWindow;
+    };
+
+    static std::map<int, GtkWidgetImp*> GtkWidgetMap;
 };

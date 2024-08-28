@@ -13,6 +13,8 @@ namespace Gui{
     public:
         static WindowSystemFactory* Instance();
         WindowImp* MakeWindowImp(int);
+        WidgetImp* MakeWidgetImp(int);
+        MainWindowImp* MakeMainWindowImp(int);
         void SetWindowSystem(WindowSystem);
     protected:
         WindowSystemFactory() {};

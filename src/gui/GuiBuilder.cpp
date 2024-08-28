@@ -21,7 +21,7 @@ void GuiBuilder::SetWindowSystem(WindowSystem configuration)
 int GuiBuilder::MakeGui(int argc, char** argv)
 {
     auto mainWindow = new MainWindow();
-    auto logWindow = new LogWindow();
-    mainWindow->Add(logWindow);
+    // auto logWindow = new LogWindow();
+    // mainWindow->Add(logWindow);
     return mainWindow->PresentMain(argc, argv);
 }

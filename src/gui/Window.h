@@ -21,9 +21,9 @@ namespace Gui{
         int GetId();
     protected:
         Window();
+        int _id;
     private:
         WindowImp* _windowImp;
-        int _id;
     };
 
     class CompositeWindow : public Window
@@ -38,7 +38,10 @@ namespace Gui{
     class MainWindow : public CompositeWindow
     {
     public:
+        MainWindowImp* GetMainWindowImp();
         int PresentMain(int, char**);
+    private:
+        MainWindowImp* _mainWindowImp;
     };
 
     class LogWindow : public Window

@@ -17,6 +17,15 @@ void WindowSystemFactory::SetWindowSystem(WindowSystem configuration){
     _configuration = configuration;
 }
 
+WidgetImp* WindowSystemFactory::MakeWidgetImp(int id)
+{
+    switch(_configuration)
+    {
+        case GTK: return new GtkWidgetImp(id);
+        default: return new GtkWidgetImp(id);
+    }    
+}
+
 WindowImp* WindowSystemFactory::MakeWindowImp(int id)
 {
     switch(_configuration)
@@ -26,3 +35,11 @@ WindowImp* WindowSystemFactory::MakeWindowImp(int id)
     }
 }
 
+MainWindowImp* WindowSystemFactory::MakeMainWindowImp(int id)
+{
+    switch(_configuration)
+    {
+        case GTK: return new GtkMainWindowImp(id);
+        default: return new GtkMainWindowImp(id);
+    }
+}
