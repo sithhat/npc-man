@@ -28,27 +28,21 @@ Widget::Widget()
 {
     IdGenerator* idGenerator = IdGenerator::Instance();
     _id = idGenerator->GenerateWindowId();
+    _widgetImp = 0;
 }
 
 WidgetImp* Widget::GetWidgetImp()
 {
-    if (_windowImp == 0)
+    if (_widgetImp == 0)
     {
-        _windowImp = WindowSystemFactory::Instance()->MakeWidgetImp(_id);
+        _widgetImp = WindowSystemFactory::Instance()->MakeWidgetImp(_id);
     }
-    return _windowImp;
+    return _widgetImp;
 }
 
 int Widget::GetId()
 {
     return _id;
-}
-
-void CompositeWidget::Add(Widget* child)
-{
-    _childWindows.push_back(child);
-    WidgetImp* imp = GetWidgetImp();
-    imp->ImpAdd(child->GetId());
 }
 
 MainWindowImp* MainWindow::GetMainWindowImp()
@@ -66,7 +60,16 @@ int MainWindow::PresentMain(int argc, char** argv)
     return imp->ImpPresentMain(argc, argv);
 }
 
-void LogWindow::Present()
+void MainWindow::WindowAdd(Widget* child)
 {
-    // WidgetImp* imp = GetWidgetImp();
+    _childWindows.push_back(child);
+    MainWindowImp* imp = GetMainWindowImp();
+    imp->ImpWindowAdd(child->GetId());
+}
+
+LogWindow::LogWindow()
+    : Widget()
+{
+    WidgetImp* imp = GetWidgetImp();
+    imp->ImpTextView();
 }

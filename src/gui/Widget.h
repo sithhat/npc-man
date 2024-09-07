@@ -23,32 +23,30 @@ namespace Gui{
         Widget();
         int _id;
     private:
-        WidgetImp* _windowImp;
+        WidgetImp* _widgetImp;
     };
 
     class CompositeWidget : public Widget
     {
     public:
         virtual ~CompositeWidget() {};
-        virtual void Add(Widget*);
-    private:
         std::list<Widget*> _childWindows;
     };
 
-    class MainWindow : public CompositeWidget
+    class MainWindow : virtual public CompositeWidget
     {
     public:
         MainWindowImp* GetMainWindowImp();
         int PresentMain(int, char**);
+        void WindowAdd(Widget*);
     private:
         MainWindowImp* _mainWindowImp;
     };
 
-    class LogWindow : public Widget
+    class LogWindow : virtual public Widget
     {
     public:
-        void Present() override;
-        // virtual void UpdateLogBuffer();
+        LogWindow();
     private:
         const char* _logText;
     };

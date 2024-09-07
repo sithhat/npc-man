@@ -15,14 +15,24 @@ WindowSystemFactory* WindowSystemFactory::Instance()
 
 void WindowSystemFactory::SetWindowSystem(WindowSystem configuration){
     _configuration = configuration;
+    switch(_configuration)
+    {
+        case GTK: 
+            GtkApp::Init();
+            break;
+        default:
+            GtkApp::Init();
+    }
 }
 
 WidgetImp* WindowSystemFactory::MakeWidgetImp(int id)
 {
     switch(_configuration)
     {
-        case GTK: return new GtkWidgetImp(id);
-        default: return new GtkWidgetImp(id);
+        case GTK:
+            return new GtkWidgetImp(id);
+        default:
+            return new GtkWidgetImp(id);
     }    
 }
 

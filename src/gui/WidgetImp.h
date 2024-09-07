@@ -10,7 +10,8 @@ namespace Gui {
         WidgetImp(int);
         int GetId();
         virtual ~WidgetImp() {};
-        virtual void ImpAdd(int) {};
+        virtual void ImpTextView() {};
+        virtual void ImpPresent() {};
     protected:
         int _id;
     };
@@ -19,6 +20,7 @@ namespace Gui {
     {
     public:
         virtual int ImpPresentMain(int, char**) { return 0; };
+        virtual void ImpWindowAdd(int) {};
     };
 
     class GtkWidgetImp : virtual public WidgetImp
@@ -26,7 +28,7 @@ namespace Gui {
     public:
         GtkWidgetImp(int);
         ~GtkWidgetImp() {};
-        void ImpAdd(int) override;
+        void ImpTextView() override;
         GtkWidget* Get();
     private:
         GtkWidget* _widget;
@@ -38,10 +40,7 @@ namespace Gui {
         GtkMainWindowImp(int);
         ~GtkMainWindowImp() {};
         int ImpPresentMain(int, char**) override;
-        static void Activate(GtkApplication*);//, gpointer*);
-    private:
-        static GtkWidget* GetMain();
-        static GtkWidget* _mainWindow;
+        void ImpWindowAdd(int) override;
     };
 
     static std::map<int, GtkWidgetImp*> GtkWidgetMap;

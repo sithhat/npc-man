@@ -4,11 +4,15 @@ namespace Gui{
 
     class GtkApp{
     public:
-        static GtkApplication* Instance();
         ~GtkApp();
+        static GtkApplication* Instance();
+        static void Init();
+        static void Activate(GtkApplication*);
+        static GtkWidget* GetMain();
     protected:
         GtkApp() {};
     private:
+        static GtkWidget* _mainWindow;
         static GtkApplication* _instance;
     };
 };
