@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5.0)  # Necessary minimum step
 project(npc-man VERSION 0.1.0 LANGUAGES C CXX)  # Necessary minimum step
+
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 add_executable(npc-man src/main.cpp)  # Necessary minimum step 
 
 # Add local subdirectories

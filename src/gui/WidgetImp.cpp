@@ -1,4 +1,4 @@
-#include "WindowImp.h"
+#include "WidgetImp.h"
 
 using namespace Gui;
 
@@ -15,13 +15,6 @@ int WidgetImp::GetId()
     return _id;
 }
 
-WindowImp::WindowImp(int id)
-    : WidgetImp(id) {}
-
-MainWindowImp::MainWindowImp(int id)
-    : WindowImp(id)
-    , WidgetImp(id) {}
-
 GtkWidgetImp::GtkWidgetImp(int id)
     : WidgetImp(id)
 {
@@ -33,12 +26,7 @@ GtkWidget* GtkWidgetImp::Get()
     return _widget;
 }
 
-GtkWindowImp::GtkWindowImp(int id)
-    : GtkWidgetImp(id) 
-    , WindowImp(id)
-    , WidgetImp(id) {}
-
-void GtkWindowImp::ImpAdd(int id)
+void GtkWidgetImp::ImpAdd(int id)
 {
     auto child = GtkWidgetMap[id]->Get();
     gtk_window_set_child(GTK_WINDOW(Get()), child);
@@ -61,11 +49,8 @@ void GtkWindowImp::ImpAdd(int id)
 // }
 
 GtkMainWindowImp::GtkMainWindowImp(int id)
-    : GtkWindowImp(id)
-    , GtkWidgetImp(id)
-    , MainWindowImp(id)
-    , WindowImp(id)
-    , WidgetImp(id) {}
+    : WidgetImp(id)
+    , GtkWidgetImp(id) {}
 
 GtkWidget* GtkMainWindowImp::GetMain()
 {
@@ -83,7 +68,7 @@ int GtkMainWindowImp::ImpPresentMain(int argc, char** argv)
     return status;
 }
 
-void GtkMainWindowImp::Activate(GtkApplication* app, gpointer* data)
+void GtkMainWindowImp::Activate(GtkApplication* app)//, gpointer* data)
 {
     auto window = GetMain();
     gtk_window_set_application(GTK_WINDOW(window), app);

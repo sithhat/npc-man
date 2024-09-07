@@ -1,4 +1,4 @@
-#include "WindowImp.h"
+#include "WidgetImp.h"
 
 namespace Gui{
     class IdGenerator
@@ -13,29 +13,29 @@ namespace Gui{
         int _count;
     };
 
-    class Window
+    class Widget
     {
     public:
         virtual void Present() {};
-        WindowImp* GetWindowImp();
+        WidgetImp* GetWidgetImp();
         int GetId();
     protected:
-        Window();
+        Widget();
         int _id;
     private:
-        WindowImp* _windowImp;
+        WidgetImp* _windowImp;
     };
 
-    class CompositeWindow : public Window
+    class CompositeWidget : public Widget
     {
     public:
-        virtual ~CompositeWindow() {};
-        virtual void Add(Window*);
+        virtual ~CompositeWidget() {};
+        virtual void Add(Widget*);
     private:
-        std::list<Window*> _childWindows;
+        std::list<Widget*> _childWindows;
     };
 
-    class MainWindow : public CompositeWindow
+    class MainWindow : public CompositeWidget
     {
     public:
         MainWindowImp* GetMainWindowImp();
@@ -44,7 +44,7 @@ namespace Gui{
         MainWindowImp* _mainWindowImp;
     };
 
-    class LogWindow : public Window
+    class LogWindow : public Widget
     {
     public:
         void Present() override;

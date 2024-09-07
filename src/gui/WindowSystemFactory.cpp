@@ -26,15 +26,6 @@ WidgetImp* WindowSystemFactory::MakeWidgetImp(int id)
     }    
 }
 
-WindowImp* WindowSystemFactory::MakeWindowImp(int id)
-{
-    switch(_configuration)
-    {
-        case GTK: return new GtkWindowImp(id);
-        default: return new GtkWindowImp(id);
-    }
-}
-
 MainWindowImp* WindowSystemFactory::MakeMainWindowImp(int id)
 {
     switch(_configuration)

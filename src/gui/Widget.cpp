@@ -24,30 +24,30 @@ int IdGenerator::GenerateWindowId()
     return _count;
 }
 
-Window::Window()
+Widget::Widget()
 {
     IdGenerator* idGenerator = IdGenerator::Instance();
     _id = idGenerator->GenerateWindowId();
 }
 
-WindowImp* Window::GetWindowImp()
+WidgetImp* Widget::GetWidgetImp()
 {
     if (_windowImp == 0)
     {
-        _windowImp = WindowSystemFactory::Instance()->MakeWindowImp(_id);
+        _windowImp = WindowSystemFactory::Instance()->MakeWidgetImp(_id);
     }
     return _windowImp;
 }
 
-int Window::GetId()
+int Widget::GetId()
 {
     return _id;
 }
 
-void CompositeWindow::Add(Window* child)
+void CompositeWidget::Add(Widget* child)
 {
     _childWindows.push_back(child);
-    WindowImp* imp = GetWindowImp();
+    WidgetImp* imp = GetWidgetImp();
     imp->ImpAdd(child->GetId());
 }
 

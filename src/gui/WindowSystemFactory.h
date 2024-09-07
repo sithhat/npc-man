@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "Widget.h"
 
 namespace Gui{
     
@@ -12,7 +12,6 @@ namespace Gui{
     class WindowSystemFactory{
     public:
         static WindowSystemFactory* Instance();
-        WindowImp* MakeWindowImp(int);
         WidgetImp* MakeWidgetImp(int);
         MainWindowImp* MakeMainWindowImp(int);
         void SetWindowSystem(WindowSystem);
