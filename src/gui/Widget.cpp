@@ -73,3 +73,11 @@ LogWindow::LogWindow()
     WidgetImp* imp = GetWidgetImp();
     imp->ImpTextView();
 }
+
+void LogWindow::Log(std::string text)
+{
+    WidgetImp* imp = GetWidgetImp();
+    const char* c_string = text.c_str();
+    int length = text.length();
+    imp->ImpAppendTextToBuffer(c_string, length);
+}

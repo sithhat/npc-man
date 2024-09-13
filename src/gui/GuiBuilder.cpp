@@ -1,6 +1,8 @@
 #include "GuiBuilder.h"
+#include "../logging/Logger.h"
 
 using namespace Gui;
+using namespace Logging;
 
 GuiBuilder* GuiBuilder::_instance = 0;
 
@@ -22,6 +24,7 @@ int GuiBuilder::MakeGui(int argc, char** argv)
 {
     auto mainWindow = new MainWindow();
     auto logWindow = new LogWindow();
+    Logger logger(logWindow);
     mainWindow->WindowAdd(logWindow);
     return mainWindow->PresentMain(argc, argv);
 }

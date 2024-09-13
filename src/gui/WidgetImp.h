@@ -12,6 +12,7 @@ namespace Gui {
         virtual ~WidgetImp() {};
         virtual void ImpTextView() {};
         virtual void ImpPresent() {};
+        virtual void ImpAppendTextToBuffer(const char*, int) {};
     protected:
         int _id;
     };
@@ -29,6 +30,7 @@ namespace Gui {
         GtkWidgetImp(int);
         ~GtkWidgetImp() {};
         void ImpTextView() override;
+        void ImpAppendTextToBuffer(const char*, int);
         GtkWidget* Get();
     private:
         GtkWidget* _widget;

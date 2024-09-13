@@ -35,9 +35,18 @@ void GtkMainWindowImp::ImpWindowAdd(int id)
 void GtkWidgetImp::ImpTextView()
 {
     _widget = gtk_text_view_new();
+    gtk_text_view_set_editable(GTK_TEXT_VIEW(_widget), FALSE);
     auto buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(_widget));
     auto text = "";
     gtk_text_buffer_set_text(buffer, text, -1);
+}
+
+void GtkWidgetImp::ImpAppendTextToBuffer(const char* text, int length)
+{
+    auto buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(_widget));
+    auto end = new GtkTextIter;
+    gtk_text_buffer_get_end_iter(buffer, end);
+    gtk_text_buffer_insert(buffer, end, text, length);
 }
 
 GtkMainWindowImp::GtkMainWindowImp(int id)

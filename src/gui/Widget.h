@@ -1,3 +1,5 @@
+#include <string>
+
 #include "WidgetImp.h"
 
 namespace Gui{
@@ -47,6 +49,7 @@ namespace Gui{
     {
     public:
         LogWindow();
+        void Log(std::string);
     private:
         const char* _logText;
     };
