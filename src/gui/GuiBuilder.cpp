@@ -1,3 +1,6 @@
+#include <functional>
+#include <memory>
+
 #include "GuiBuilder.h"
 #include "../logging/Logger.h"
 
@@ -24,7 +27,9 @@ int GuiBuilder::MakeGui(int argc, char** argv)
 {
     auto mainWindow = new MainWindow();
     auto logWindow = new LogWindow();
-    Logger logger(logWindow);
+    auto logger = new Logging::Logger();
+    logger->Log(Logging::LogLevel::INFO, "Adding log window to main.");
     mainWindow->WindowAdd(logWindow);
+    logWindow->Log(logger->GetQueue());
     return mainWindow->PresentMain(argc, argv);
 }

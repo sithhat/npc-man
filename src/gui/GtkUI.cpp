@@ -31,7 +31,7 @@ GtkWidget* GtkApp::GetMain()
     return _mainWindow;
 }
 
-void GtkApp::Activate(GtkApplication* app)//, gpointer* data)
+void GtkApp::Activate(GtkApplication* app)
 {
     auto window = GetMain();
     gtk_window_set_application(GTK_WINDOW(window), app);

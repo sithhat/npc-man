@@ -1,8 +1,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-
-#include "../gui/Widget.h"
+#include <queue>
 
 namespace Logging
 {
@@ -21,11 +20,12 @@ namespace Logging
     class Logger
     {
     public:
-        Logger(Gui::LogWindow*);
+        Logger();
         LoggerStream Log(LogLevel);
         void Log(LogLevel, const std::string&);
+        std::queue<std::string>* GetQueue();
     private:
-        Gui::LogWindow* window;
+        std::queue<std::string> entries;
     };
 
     /// @brief from https://nuah.livejournal.com/322022.html

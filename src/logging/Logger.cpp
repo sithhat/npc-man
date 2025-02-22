@@ -2,8 +2,7 @@
 
 using namespace Logging;
 
-Logger::Logger(Gui::LogWindow* window)
-    : window(window){}
+Logger::Logger() {}
 
 void Logger::Log(LogLevel level, const std::string& message)
 {
@@ -12,7 +11,7 @@ void Logger::Log(LogLevel level, const std::string& message)
     {
         case INFO:
             stream << "[INFO]: " << message << std::endl;
-            window->Log(stream.str());
+            entries.push(stream.str());
             break;
     }
 }
@@ -20,6 +19,11 @@ void Logger::Log(LogLevel level, const std::string& message)
 LoggerStream Logger::Log(LogLevel level)
 {
     return LoggerStream(*this, level);
+}
+
+std::queue<std::string>* Logger::GetQueue()
+{
+    return &entries;
 }
 
 LoggerStream::LoggerStream(Logger& logger, LogLevel level)

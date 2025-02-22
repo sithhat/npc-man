@@ -74,10 +74,14 @@ LogWindow::LogWindow()
     imp->ImpTextView();
 }
 
-void LogWindow::Log(std::string text)
+void LogWindow::Log(std::queue<std::string>* entries)
 {
     WidgetImp* imp = GetWidgetImp();
-    const char* c_string = text.c_str();
-    int length = text.length();
-    imp->ImpAppendTextToBuffer(c_string, length);
+    while(!entries->empty()){
+        auto message = entries->front();
+        const char* c_string = message.c_str();
+        int length = message.length();
+        imp->ImpAppendTextToBuffer(c_string, length);
+        entries->pop();
+    }
 }

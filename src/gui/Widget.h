@@ -1,8 +1,17 @@
 #include <string>
+#include <queue>
 
 #include "WidgetImp.h"
 
 namespace Gui{
+    enum LogLevel
+    {
+        DEBUG,
+        INFO,
+        WARN,
+        ERROR
+    };
+
     class IdGenerator
     {
     public:
@@ -49,8 +58,6 @@ namespace Gui{
     {
     public:
         LogWindow();
-        void Log(std::string);
-    private:
-        const char* _logText;
+        void Log(std::queue<std::string>*);
     };
 };
